@@ -8,12 +8,9 @@ package bookstore;
  *
  * @author jjmurray
  */
-import java.util.ArrayList;
 public class Owner extends User {
     Owner(){
         super("admin","admin");
     }
-    public ArrayList<String>  viewBooks(ArrayList<String> Books){
-        return Books; // todo Implementation
-    }
+
 }

@@ -15,7 +15,6 @@ public abstract class User {
         username = uname;
         password = pword;
     }
-    abstract ArrayList<String> viewBooks(ArrayList<String> Books);
     public String getName(){
         return username;
     }
