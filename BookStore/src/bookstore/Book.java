@@ -26,4 +26,19 @@ public class Book {
     double getPrice(){
         return price;
     }
+    @Override 
+    public boolean equals(Object comparedObject){
+        if(this == comparedObject){
+            return true;
+        }
+        if(!(comparedObject instanceof User)){
+            return false;
+        }
+        Book comparedBook = (Book) comparedObject;
+        return ( (this.getName().equals(comparedBook.getName())) && 
+                (this.getPrice() == comparedBook.getPrice()));
+    }
+//
+    
+    
 }

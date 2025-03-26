@@ -17,9 +17,35 @@ import java.util.ArrayList;
  * @author jjmurray
  */
 public class BookStore extends Application {
-    ArrayList<User> users;
-    ArrayList<Book> books;
-    PointsSystem pointsystem;
+    private ArrayList<User> users;
+    private ArrayList<Book> books;
+    private PointsSystem pointsystem;
+    private User currentUser = null;
+    
+    public void addUser(User user){
+        this.users.add(user);
+    }
+    public void addBook(Book book){
+        this.books.add(book);
+    }
+
+    public boolean authenticate(User l_user){
+        return users.contains(l_user);
+    }
+    public boolean delete(User d_user){
+        if(users.contains(d_user)){
+            users.remove(d_user);
+            return true;
+        }
+        return false;
+    }
+        public boolean delete(Book book){
+        if(books.contains(book)){
+            books.remove(books);
+            return true;
+        }
+        return false;
+    }
     
     @Override
     public void start(Stage primaryStage) {
