@@ -8,15 +8,11 @@ package bookstore;
  *
  * @author jjmurray
  */
-import java.util.ArrayList;
 public class Customer extends User {
     private double points;
     Customer(String uname, String pword){
          super(uname,pword);
          points = 0;
-    }
-    public ArrayList<String> viewBooks(ArrayList<String> Books){
-        return Books; // to do implementation 
     }
         @Override 
     public String toString(){

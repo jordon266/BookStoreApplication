@@ -9,16 +9,11 @@ package bookstore;
  * @author jjmurray
  */
 public class Book {
-    private String id;
     private String name;
     private double price;
-    Book(String ID, String bname, double bprice){
-        id = ID;
+    Book(String bname, double bprice){
         name = bname;
         price = bprice;
-    }
-    String getId(){
-        return id;
     }
     String getName(){
         return name;
@@ -41,7 +36,7 @@ public class Book {
 //
     @Override 
     public String toString(){
-        return this.getId() + "," +this.getName() + "," + this.getPrice();
+        return this.getName() + "," + this.getPrice();
     }
     
 }
