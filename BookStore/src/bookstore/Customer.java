@@ -18,4 +18,8 @@ public class Customer extends User {
     public ArrayList<String> viewBooks(ArrayList<String> Books){
         return Books; // to do implementation 
     }
+        @Override 
+    public String toString(){
+        return this.getName() + "," +this.getPassword();
+    }
 }

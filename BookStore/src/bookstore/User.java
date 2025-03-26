@@ -34,4 +34,7 @@ public abstract class User {
         return (this.getName().equals(comparedUser.getName())
                 && this.getPassword().equals(comparedUser.getPassword()));
     }
+    public String toString(){
+        return this.getName() + "," +this.getPassword();
+    }
 }

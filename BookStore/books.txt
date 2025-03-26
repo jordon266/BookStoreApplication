@@ -1,0 +1,10 @@
+BK001,To Kill a Mockingbird,15.99
+BK002,1984,12.99
+BK003,Pride and Prejudice,10.99
+BK004,The Great Gatsby,14.99
+BK005,The Catcher in the Rye,13.99
+BK006,The Hunger Games,16.99
+BK007,The Handmaid's Tale,11.99
+BK008,The Picture of Dorian Gray,9.99
+BK009,War and Peace,17.99
+BK010,Moby-Dick,18.99
