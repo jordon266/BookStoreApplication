@@ -179,7 +179,7 @@ public class BookStore extends Application {
     public void start(Stage primaryStage) {
        
         
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("BookStore App");
 //        System.out.println("is it crasing here");
 
         primaryStage.setScene(currentState.buildUI());
