@@ -28,6 +28,7 @@ public class BookStore extends Application {
     private ObservableList<User> users = null;  
     private ObservableList<Book> books = null;
     UIState currentState;
+    Stage primaryStage = new Stage();
 
 //    private ArrayList<User> users = null;
 //    private PointsSystem pointsystem;
@@ -174,11 +175,17 @@ public class BookStore extends Application {
 //    }
     
 
+    public void setState(UIState state){
+        this.currentState = state;
+        Scene scene = currentState.buildUI();
+        primaryStage.setScene(currentState.buildUI());
+        primaryStage.show();
+    }
     
     @Override
     public void start(Stage primaryStage) {
        
-        
+        primaryStage = this.primaryStage;
         primaryStage.setTitle("BookStore App");
 //        System.out.println("is it crasing here");
 
@@ -187,9 +194,15 @@ public class BookStore extends Application {
         primaryStage.show();
         
     }
+    @Override
+    public void stop(){
+        System.out.println("Saving occurs here");
+        
+    }
     public User getOwner(){
         return owner;
     }
+    
     public User getCurrentUser(){
         return currentUser;
     }
