@@ -4,6 +4,9 @@
  */
 package bookstore;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author jjmurray
@@ -27,8 +30,12 @@ public class Customer extends User {
         }
         return false;
     }
+ 
+ 
         @Override 
     public String toString(){
-        return this.getName() + "," +this.getPassword() + "," + this.getPoints();
+        return this.getUserName() + "," +this.getPassword() + "," + this.getPoints();
     }
+
+
 }

@@ -9,14 +9,14 @@ import java.util.ArrayList;
  * @author jjmurray
  */
 public abstract class User {
-    private String username;
+    private String userName;
     private String password;
     User(String uname, String pword){
-        username = uname;
+        userName = uname;
         password = pword;
     }
-    public String getName(){
-        return username;
+    public String getUserName(){
+        return userName;
     }
     public String getPassword(){
         return password;
@@ -30,10 +30,10 @@ public abstract class User {
             return false;
         }
         User comparedUser = (User) comparedObject;
-        return (this.getName().equals(comparedUser.getName())
+        return (this.getUserName().equals(comparedUser.getUserName())
                 && this.getPassword().equals(comparedUser.getPassword()));
     }
     public String toString(){
-        return this.getName() + "," +this.getPassword();
+        return this.getUserName() + "," +this.getPassword();
     }
 }

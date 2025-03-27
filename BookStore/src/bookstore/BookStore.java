@@ -19,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+
 //import java.util.ArrayList;
 /**
  *
@@ -158,7 +159,7 @@ public class BookStore extends Application {
     }
     
     public String greetCustomer(){  
-        return ("Welcome " + this.currentUser.getName() + "." + " You have " + ((Customer)this.currentUser).getPoints()
+        return ("Welcome " + this.currentUser.getUserName() + "." + " You have " + ((Customer)this.currentUser).getPoints()
                  + " points. Your status is " + PointsSystem.getStatus(((Customer)this.currentUser).getPoints()) );
     }
 
@@ -178,7 +179,7 @@ public class BookStore extends Application {
     public void setState(UIState state){
         this.currentState = state;
         Scene scene = currentState.buildUI();
-        primaryStage.setScene(currentState.buildUI());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
     
@@ -196,6 +197,7 @@ public class BookStore extends Application {
     }
     @Override
     public void stop(){
+        //this.write();
         System.out.println("Saving occurs here");
         
     }

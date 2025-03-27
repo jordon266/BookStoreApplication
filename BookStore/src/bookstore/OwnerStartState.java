@@ -53,6 +53,20 @@ public class OwnerStartState extends UIState {
         gp.add(logout, 2, 2);
 
         
+        customers.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                changeState(new OwnerCustomersState(DB));
+            }
+        });
+        books.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                changeState(new OwnerBooksState(DB));
+            }
+        });
         logout.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -61,13 +75,9 @@ public class OwnerStartState extends UIState {
                 changeState(new LoginState(DB));
             }
         });
-        
-//        GridPane.setConstraints(books,1,0);
-//        GridPane.setConstraints(customers,1,1);
-//        GridPane.setConstraints(logout,1,2);
 
         
-//        gp.getChildren().addAll(books,customers,logout);
+
         Scene scene = new  Scene(gp,300,300);
         //System.out.println("This is my gridpane" +gp.getChildren());
         return scene;
