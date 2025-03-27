@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package bookstore;
-
+import javafx.scene.control.CheckBox;
 /**
  *
  * @author jjmurray
@@ -11,16 +11,23 @@ package bookstore;
 public class Book {
     private String name;
     private double price;
-    private boolean selected;
+    private CheckBox select;
     Book(String bname, double bprice){
         name = bname;
         price = bprice;
+        CheckBox selected = new CheckBox();
     }
     String getName(){
         return name;
     }
     double getPrice(){
         return price;
+    }
+    public CheckBox getCheckBox(){
+        return this.select;
+    }
+    public void setCheckBox(CheckBox checkBox){
+        this.select = checkBox;
     }
     @Override 
     public boolean equals(Object comparedObject){

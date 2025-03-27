@@ -16,8 +16,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import java.util.ArrayList;
+
+//import java.util.ArrayList;
 /**
  *
  * @author jjmurray
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 public class BookStore extends Application {
     private ObservableList<User> users = null;  
     private ObservableList<Book> books = null;
+    UIState currentState;
 
 //    private ArrayList<User> users = null;
 //    private PointsSystem pointsystem;
@@ -35,6 +38,9 @@ public class BookStore extends Application {
         owner = new Owner();
         users = FXCollections.observableArrayList();
         books = FXCollections.observableArrayList();
+        this.read();
+        currentState = new LoginState(this);
+
         
     }
     
@@ -74,7 +80,7 @@ public class BookStore extends Application {
     
     private Customer loadCustomer(String line){
         String [] params =  line.split(",");
-        Customer temp = new Customer(params[0],params[1]);
+        Customer temp = new Customer(params[0],params[1],Integer.valueOf(params[2]));
         return temp;
     }
     private Book loadBook(String line){
@@ -124,6 +130,14 @@ public class BookStore extends Application {
         }
         return false;
     }
+    public User getUser(User l_user){
+        for(User user: users){
+            if(user.equals(l_user)){
+                return user;
+            }
+        }
+        return null;
+    }
     public ObservableList<User> getUsers(){
         return users;
     }
@@ -147,40 +161,41 @@ public class BookStore extends Application {
                  + " points. Your status is " + PointsSystem.getStatus(((Customer)this.currentUser).getPoints()) );
     }
 
-    public boolean authenticate(User l_user){
-        if(users.contains(l_user)){
-            currentUser = l_user;
-            return true;
-        }
-        return false    ;
-    }
+//    public boolean authenticate(User l_user){
+//        if(l_user.getName().equals("admin") && l_user.getPassword().equals("admin")){
+//            currentUser = owner;
+//            return true;
+//        }
+//        if(users.contains(l_user)){
+//            currentUser = l_user;
+//            return true;
+//        }
+//        return false    ;
+//    }
+    
 
     
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
+       
         
         primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
+//        System.out.println("is it crasing here");
+
+        primaryStage.setScene(currentState.buildUI());
+        System.out.println("Maybe its crashing here");
         primaryStage.show();
+        
+    }
+    public User getOwner(){
+        return owner;
     }
     public User getCurrentUser(){
         return currentUser;
     }
-    
+    public void setCurrentUser(User user){
+        currentUser = user;
+    }
     // test functions
     public void printUsers(){
         for(User user: users){
@@ -197,38 +212,41 @@ public class BookStore extends Application {
      */
     public static void main(String[] args) {
         //launch(args);
-        BookStore b = new BookStore();
-//        ArrayList<User> customers = b.getUsers();
-//        customers.add(new Customer("emilychen", "ilovebooks123"));
-//        customers.add(new Customer("davidlee1980", "password123"));
-//        customers.add(new Customer("sophiap123", "sophiap1234"));
-//        customers.add(new Customer("jacksonb", "jackson123"));
-//        customers.add(new Customer("avamoreno", "avam123"));
-//        customers.add(new Customer("liamk90", "liamk1234"));
-//        customers.add(new Customer("charlotted", "charlotte99"));
-//        customers.add(new Customer("ethanhall", "ethan12345"));
-//        customers.add(new Customer("abitaylor", "abigailt123"));
-//        customers.add(new Customer("loganb22", "loganbrooks1"));
-//        System.out.println(customers);
-//        ArrayList<Book> books = b.getBooks();
-//        books.add(new Book( "To Kill a Mockingbird", 15.99));
-//        books.add(new Book("1984", 12.99));
-//        books.add(new Book( "Pride and Prejudice", 10.99));
-//        books.add(new Book( "The Great Gatsby", 14.99));
-//        books.add(new Book("The Catcher in the Rye", 13.99));
-//        books.add(new Book("The Hunger Games", 16.99));
-//        books.add(new Book("The Handmaid's Tale", 11.99));
-//        books.add(new Book( "The Picture of Dorian Gray", 9.99));
-//        books.add(new Book( "War and Peace", 17.99));
-//        books.add(new Book( "Moby-Dick", 18.99));   
+                launch(args);
 
-        b.read();
-        b.printUsers();
-        b.printBooks();
-        User temp = new Customer("ethanhall","ethan12345");
-        boolean logged_in = b.authenticate(temp);
-        System.out.println("is she logged in ?" + logged_in);
-        System.out.println("The current user is " + b.getCurrentUser());
+// Create a BookStore object
+                BookStore bookstore = new BookStore();
+
+                // Create 10 Customer objects
+                Customer customer1 = new Customer("johnDoe", "password123", 100);
+                Customer customer2 = new Customer("janeDoe", "password456", 200);
+                Customer customer3 = new Customer("bobSmith", "password789", 300);
+                Customer customer4 = new Customer("aliceJohnson", "password101", 400);
+                Customer customer5 = new Customer("mikeWilliams", "password102", 500);
+                Customer customer6 = new Customer("emilyDavis", "password103", 600);
+                Customer customer7 = new Customer("davidMiller", "password104", 700);
+                Customer customer8 = new Customer("sarahTaylor", "password105", 800);
+                Customer customer9 = new Customer("kevinWhite", "password106", 900);
+                Customer customer10 = new Customer("oliviaMartin", "password107", 1000);
+
+                // Add the customers to the bookstore
+                bookstore.addUser(customer1);
+                bookstore.addUser(customer2);
+                bookstore.addUser(customer3);
+                bookstore.addUser(customer4);
+                bookstore.addUser(customer5);
+                bookstore.addUser(customer6);
+                bookstore.addUser(customer7);
+                bookstore.addUser(customer8);
+                bookstore.addUser(customer9);
+                bookstore.addUser(customer10);
+//                bookstore.write();
+//        b.printUsers();
+//        b.printBooks();
+//        User temp = new Customer("ethanhall","ethan12345");
+////        boolean logged_in = b.authenticate(temp);
+//        System.out.println("is she logged in ?" + logged_in);
+//        System.out.println("The current user is " + b.getCurrentUser());
         
     }
     
