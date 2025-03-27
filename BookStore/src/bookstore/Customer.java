@@ -10,15 +10,22 @@ package bookstore;
  */
 public class Customer extends User {
     private int points;
-    Customer(String uname, String pword){
+    Customer(String uname, String pword, int pointsBalance){
          super(uname,pword);
-         points = 0;
+         points = pointsBalance;
     }
     public int getPoints(){
         return points;
     }
+    public boolean adjustPoints(int amount){
+        if(points + amount >= 0){
+            points += amount;
+            return true;
+        }
+        return false;
+    }
         @Override 
     public String toString(){
-        return this.getName() + "," +this.getPassword();
+        return this.getName() + "," +this.getPassword() + "," + this.getPoints();
     }
 }
