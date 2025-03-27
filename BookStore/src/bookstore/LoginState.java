@@ -10,8 +10,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.StackPane;
 import javafx.collections.ObservableList;
+
 /**
  *
  * @author jjmurray
@@ -39,6 +41,11 @@ public class LoginState extends UIState {
         }
         return false    ;
     }
+    public boolean login(String username, String password){
+        User temp = new Customer(username, password);
+        boolean isUser = authenticate(temp);
+        return isUser;
+    }
     
     public Scene buildUI(){
         GridPane root = new GridPane();
@@ -49,7 +56,6 @@ public class LoginState extends UIState {
         Label passwordLabel = new Label("Password");
         TextField userNameField = new TextField();
         TextField passwordField = new TextField();
-        Button btn = new Button();
         GridPane.setConstraints(welcomeBanner,0,0);
         GridPane.setConstraints(userNameLabel,0,1);
         GridPane.setConstraints(passwordLabel,0,2);
@@ -58,14 +64,31 @@ public class LoginState extends UIState {
         GridPane.setConstraints(loginbtn, 1, 3);
         root.getChildren().addAll(welcomeBanner,loginbtn,userNameLabel,userNameField,passwordLabel,passwordField);
 
-//        btn.setText("Say 'Hello World'");
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//            
-//            @Override
-//            public void handle(ActionEvent event) {
-//                System.out.println("BookStore");
-//            }
-//        });
+        
+        loginbtn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                boolean userIsLoggedIn = login(userNameField.getText(),passwordField.getText());
+                if(userIsLoggedIn){
+                    if(isOwner()){
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setContentText("This is the owner");
+                        alert.show();
+                         
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setContentText("This is a customer");
+                        alert.show();
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Invalid User name or Invalid Password");
+                    alert.setHeaderText("Sorry Wrong Login");
+                    alert.show();
+                }              
+            }
+        });
         Scene scene = new Scene(root, 400, 150);
         return scene;
     }

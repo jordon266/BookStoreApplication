@@ -14,6 +14,9 @@ public class Customer extends User {
          super(uname,pword);
          points = pointsBalance;
     }
+    Customer(String uname, String pword){ // for temporary use
+         super(uname,pword);
+    }
     public int getPoints(){
         return points;
     }
