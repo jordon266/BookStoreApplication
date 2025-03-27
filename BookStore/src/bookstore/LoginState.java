@@ -11,8 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.StackPane;
-import javafx.collections.ObservableList;
+//import javafx.scene.layout.StackPane;
+//import javafx.collections.ObservableList;
 
 /**
  *
@@ -47,7 +47,13 @@ public class LoginState extends UIState {
         return isUser;
     }
     
+    public void changeState(UIState state ){
+        BookStore DB = super.getDataBase();
+        DB.setState(state);
+    }
+    @Override
     public Scene buildUI(){
+        BookStore DB =super.getDataBase();
         GridPane root = new GridPane();
         Button loginbtn = new Button();
         loginbtn.setText("Login");
@@ -72,9 +78,11 @@ public class LoginState extends UIState {
                 boolean userIsLoggedIn = login(userNameField.getText(),passwordField.getText());
                 if(userIsLoggedIn){
                     if(isOwner()){
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setContentText("This is the owner");
-                        alert.show();
+//                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                        alert.setContentText("This is the owner");
+//                        alert.show();
+                          UIState ownerStart = new OwnerStartState(DB);
+                          DB.setState(ownerStart);
                          
                     } else {
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -89,6 +97,7 @@ public class LoginState extends UIState {
                 }              
             }
         });
+        
         Scene scene = new Scene(root, 400, 150);
         return scene;
     }
