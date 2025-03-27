@@ -17,10 +17,10 @@ public class Book {
         price = bprice;
         CheckBox selected = new CheckBox();
     }
-    String getName(){
+    public String getName(){
         return name;
     }
-    double getPrice(){
+    public double getPrice(){
         return price;
     }
     public CheckBox getCheckBox(){

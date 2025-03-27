@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package bookstore;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -30,7 +31,7 @@ public class LoginState extends UIState {
         User currentUser = DB.getCurrentUser();
         User owner = DB.getOwner();
         
-        if(l_user.getName().equals("admin") && l_user.getPassword().equals("admin")){
+        if(l_user.getUserName().equals("admin") && l_user.getPassword().equals("admin")){
             DB.setCurrentUser(owner);
             return true;
         }
