@@ -11,6 +11,7 @@ package bookstore;
 public class Book {
     private String name;
     private double price;
+    private boolean selected;
     Book(String bname, double bprice){
         name = bname;
         price = bprice;
