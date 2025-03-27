@@ -3,13 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
 package bookstore;
-
+import javafx.collections.FXCollections;
 import java.util.Scanner;
 import java.io.IOException;
 import java.io.File;
 import java.nio.file.Path;
 import java.io.FileWriter;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -22,18 +23,21 @@ import java.util.ArrayList;
  * @author jjmurray
  */
 public class BookStore extends Application {
-    private ArrayList<User> users = null;
-    private ArrayList<Book> books= null;
-    private PointsSystem pointsystem;
+    private ObservableList<User> users = null;  
+    private ObservableList<Book> books = null;
+
+//    private ArrayList<User> users = null;
+//    private PointsSystem pointsystem;
     private User currentUser = null;
     private User owner;
     
     public BookStore(){
         owner = new Owner();
-        users = new ArrayList<>();
-        books = new ArrayList<>();
+        users = FXCollections.observableArrayList();
+        books = FXCollections.observableArrayList();
         
     }
+    
     // writing to new file customers
     public  void write(){
         try {
@@ -78,6 +82,7 @@ public class BookStore extends Application {
         Book temp = new Book(params[0],Double.valueOf( params[1]));
         return temp;
     }
+    
     // reads files customers.txt Books.txt
     public  void read() {
         try (Scanner scanner = new Scanner(Path.of("customers.txt")) ) {
@@ -101,7 +106,7 @@ public class BookStore extends Application {
         }
     }
  
-    public ArrayList<Book> getBooks(){
+    public ObservableList<Book> getBooks(){
         return books;
     }
     public boolean addBook(Book book){
@@ -119,7 +124,7 @@ public class BookStore extends Application {
         }
         return false;
     }
-    public ArrayList<User> getUsers(){
+    public ObservableList<User> getUsers(){
         return users;
     }
     public boolean addUser(User user){
@@ -137,13 +142,17 @@ public class BookStore extends Application {
         return false;
     }
     
+    public String greetCustomer(){  
+        return ("Welcome " + this.currentUser.getName() + "." + " You have " + ((Customer)this.currentUser).getPoints()
+                 + " points. Your status is " + PointsSystem.getStatus(((Customer)this.currentUser).getPoints()) );
+    }
 
     public boolean authenticate(User l_user){
         if(users.contains(l_user)){
             currentUser = l_user;
             return true;
         }
-        return false;
+        return false    ;
     }
 
     

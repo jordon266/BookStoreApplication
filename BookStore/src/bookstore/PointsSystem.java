@@ -9,10 +9,10 @@ package bookstore;
  * @author jjmurray
  */
 public final class PointsSystem {
-    static String getStatus(double balance){
-        if(balance >= 1000.0){
-            return "Gold";
+    static String getStatus(int balance){
+        if(balance >= 1000){
+            return "G";
         }
-        return "Silver";
+        return "S";
     }
 }
