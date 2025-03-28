@@ -86,9 +86,8 @@ public class LoginState extends UIState {
                           DB.setState(ownerStart);
                          
                     } else {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setContentText("This is a customer");
-                        alert.show();
+                          UIState customerStart = new CustomerStartState(DB);
+                          DB.setState(customerStart);
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
