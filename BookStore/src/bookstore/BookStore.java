@@ -55,25 +55,28 @@ public class BookStore extends Application {
     // writing to new file customers
     public  void write(){
         try {
+            
             File c_file = new File("customers.txt");
             File b_file = new File("books.txt");
             FileWriter writer;
-            if (c_file.createNewFile()){
-                writer = new FileWriter(c_file.getAbsolutePath());
-                
-            } else {
-                writer = new FileWriter(c_file.getAbsolutePath(),true);
-            }
+            writer = new FileWriter(c_file.getAbsolutePath());
+//            if (c_file.createNewFile()){
+//                writer = new FileWriter(c_file.getAbsolutePath());
+//                
+//            } else {
+//                writer = new FileWriter(c_file.getAbsolutePath(),true);
+//            }
             for(User user: users){
                 writer.write(user.toString());
                 writer.write("\n");
             }
             writer.close();
-            if (b_file.createNewFile()){
-                writer = new FileWriter(b_file.getAbsolutePath());
-            } else {
-                writer = new FileWriter(b_file.getAbsolutePath(),true);
-            }
+            writer = new FileWriter(b_file.getAbsolutePath());
+//            if (b_file.createNewFile()){
+//                writer = new FileWriter(b_file.getAbsolutePath());
+//            } else {
+//                writer = new FileWriter(b_file.getAbsolutePath(),true);
+//            }
             for(Book book: books){
                 writer.write(book.toString());
                 writer.write("\n");
@@ -87,8 +90,12 @@ public class BookStore extends Application {
     }
     
     private Customer loadCustomer(String line){
+        System.out.println("In loadCustomer");
+        System.out.println(line);
         String [] params =  line.split(",");
-        Customer temp = new Customer(params[0],params[1],Integer.valueOf(params[2]));
+        System.out.println("This is params "+params[0] + params[1]+ (params[2]));
+        Customer temp = new Customer(params[0],params[1],(params[2]));
+        System.out.println("This is the tem user" +temp);
         return temp;
     }
     private Book loadBook(String line){
@@ -98,13 +105,16 @@ public class BookStore extends Application {
     }
     
     // reads files customers.txt Books.txt
-    public  void read() {
+    private  void read() {
         try (Scanner scanner = new Scanner(Path.of("customers.txt")) ) {
         // Write the code here
+        System.out.println("beginning of read");
             while(scanner.hasNextLine()){
                 this.addUser(loadCustomer(scanner.nextLine()));
                 
             }
+        System.out.println("end of read customer");
+
             scanner.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -163,11 +173,7 @@ public class BookStore extends Application {
         }
         return false;
     }
-    
-    public String greetCustomer(){  
-        return ("Welcome " + this.currentUser.getUserName() + "." + " You have " + ((Customer)this.currentUser).getPoints()
-                 + " points. Your status is " + PointsSystem.getStatus(((Customer)this.currentUser).getPoints()) );
-    }
+
 
 //    public boolean authenticate(User l_user){
 //        if(l_user.getName().equals("admin") && l_user.getPassword().equals("admin")){
@@ -191,10 +197,10 @@ public class BookStore extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-       
+        System.out.println("is it crasing here");
+
         primaryStage = this.primaryStage;
         primaryStage.setTitle("BookStore App");
-//        System.out.println("is it crasing here");
 
         primaryStage.setScene(currentState.buildUI());
         System.out.println("Maybe its crashing here");
@@ -233,34 +239,16 @@ public class BookStore extends Application {
      */
     public static void main(String[] args) {
         //launch(args);
-                launch(args);
+               System.out.println("is it crasing here 4l32a");
+
+        launch(args);
+               System.out.println("is it crasing here 4sdererwsd");
 
 // Create a BookStore object
-                BookStore bookstore = new BookStore();
+        BookStore bookstore = new BookStore();
 
-                // Create 10 Customer objects
-                Customer customer1 = new Customer("johnDoe", "password123", 100);
-                Customer customer2 = new Customer("janeDoe", "password456", 200);
-                Customer customer3 = new Customer("bobSmith", "password789", 300);
-                Customer customer4 = new Customer("aliceJohnson", "password101", 400);
-                Customer customer5 = new Customer("mikeWilliams", "password102", 500);
-                Customer customer6 = new Customer("emilyDavis", "password103", 600);
-                Customer customer7 = new Customer("davidMiller", "password104", 700);
-                Customer customer8 = new Customer("sarahTaylor", "password105", 800);
-                Customer customer9 = new Customer("kevinWhite", "password106", 900);
-                Customer customer10 = new Customer("oliviaMartin", "password107", 1000);
-
-                // Add the customers to the bookstore
-                bookstore.addUser(customer1);
-                bookstore.addUser(customer2);
-                bookstore.addUser(customer3);
-                bookstore.addUser(customer4);
-                bookstore.addUser(customer5);
-                bookstore.addUser(customer6);
-                bookstore.addUser(customer7);
-                bookstore.addUser(customer8);
-                bookstore.addUser(customer9);
-                bookstore.addUser(customer10);
+        // Create 10 Customer objects
+        
 //                bookstore.write();
 //        b.printUsers();
 //        b.printBooks();

@@ -29,7 +29,11 @@ public class CustomerStartState extends UIState {
         super(DB);
         table = new TableView<>();
     }
-    public void calTotalCost(){
+    public String greetCustomer(){  
+        return ("Welcome " + super.getDataBase().getCurrentUser().getUserName() + "." + " You have " + ((Customer)super.getDataBase().getCurrentUser()).getPoints()
+                 + " points. Your status is " + PointsSystem.getStatus(((Customer)super.getDataBase().getCurrentUser()).getPoints()) );
+    }
+    public void buyAndCalTotalCost(){
         BookStore DB = super.getDataBase();
         double cost = 0;
         for(Book book: DB.getBooks()){
@@ -38,7 +42,22 @@ public class CustomerStartState extends UIState {
             }
         }
         DB.setTotalCost(cost);
-        ((Customer) DB.getCurrentUser()).adjustPoints((int)cost*100);
+        
+        ((Customer) DB.getCurrentUser()).adjustPoints(((int)cost*10));
+    } 
+    public void redeemAndCalTotalCost(){
+        BookStore DB = super.getDataBase();
+        double cost = 0;
+        for(Book book: DB.getBooks()){
+            if(book.getCheckBox().isSelected()){
+               cost += book.getPrice();
+            }
+        }
+        int numOfDollarsOff = ((int) (((Customer) DB.getCurrentUser()).getPoints())/100);
+        int numOfPoints = ((Customer) DB.getCurrentUser()).getPoints();
+        DB.setTotalCost(cost - numOfDollarsOff );
+        
+        ((Customer) DB.getCurrentUser()).adjustPoints(-(numOfDollarsOff*100));
     } 
     public void changeState(UIState state ){
         BookStore DB = super.getDataBase();
@@ -57,7 +76,7 @@ public class CustomerStartState extends UIState {
         TableColumn bookPrice = new TableColumn("Book Price");
         TableColumn select = new TableColumn("Select");
         Label greeting = new Label();
-        greeting.setText(DB.greetCustomer());
+        greeting.setText(greetCustomer());
         tb.getChildren().addAll(greeting);
         bookName.setCellValueFactory( new PropertyValueFactory<Book,String>("name"));
         bookPrice.setCellValueFactory( new PropertyValueFactory<Book,Double>("price"));
@@ -75,7 +94,7 @@ public class CustomerStartState extends UIState {
             
             @Override
             public void handle(ActionEvent event) {
-                calTotalCost();
+                buyAndCalTotalCost();
                 changeState(new CustomerCostState(DB));
 
             }
@@ -88,7 +107,7 @@ public class CustomerStartState extends UIState {
             @Override
             public void handle(ActionEvent event) {
 //               ((Customer) DB.getCurrentUser()).adjustPoints()
-                calTotalCost();
+                redeemAndCalTotalCost();
                 changeState(new CustomerCostState(DB));
             }
         });
@@ -100,6 +119,7 @@ public class CustomerStartState extends UIState {
             public void handle(ActionEvent event) {
                 
                 DB.setCurrentUser(null);
+                DB.write();
                 changeState(new LoginState(DB));
                 
             }
