@@ -148,6 +148,7 @@ public class BookStore extends Application {
         }
         return false;
     }
+    //gets user
     public User getUser(User l_user){
         for(User user: users){
             if(user.equals(l_user)){
