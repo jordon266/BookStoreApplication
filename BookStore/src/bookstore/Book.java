@@ -11,11 +11,11 @@ import javafx.scene.control.CheckBox;
 public class Book {
     private String name;
     private double price;
-    private CheckBox select;
+    private CheckBox checkBox;
     Book(String bname, double bprice){
         name = bname;
         price = bprice;
-        CheckBox selected = new CheckBox();
+        checkBox = new CheckBox();
     }
     public String getName(){
         return name;
@@ -24,10 +24,10 @@ public class Book {
         return price;
     }
     public CheckBox getCheckBox(){
-        return this.select;
+        return this.checkBox;
     }
     public void setCheckBox(CheckBox checkBox){
-        this.select = checkBox;
+        this.checkBox = checkBox;
     }
     @Override 
     public boolean equals(Object comparedObject){

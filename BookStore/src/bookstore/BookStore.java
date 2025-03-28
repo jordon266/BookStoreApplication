@@ -30,6 +30,7 @@ public class BookStore extends Application {
     private ObservableList<Book> books = null;
     UIState currentState;
     Stage primaryStage = new Stage();
+    private double totalCost;
 
 //    private ArrayList<User> users = null;
 //    private PointsSystem pointsystem;
@@ -40,12 +41,17 @@ public class BookStore extends Application {
         owner = new Owner();
         users = FXCollections.observableArrayList();
         books = FXCollections.observableArrayList();
+        totalCost = 0;
         this.read();
-        currentState = new LoginState(this);
-
         
+        currentState = new LoginState(this); 
     }
-    
+    public void setTotalCost(double tCost){
+        totalCost = tCost;
+    }
+    public double getTotalCost(){
+        return totalCost;
+    }
     // writing to new file customers
     public  void write(){
         try {
@@ -197,7 +203,7 @@ public class BookStore extends Application {
     }
     @Override
     public void stop(){
-        //this.write();
+        this.write();
         System.out.println("Saving occurs here");
         
     }
