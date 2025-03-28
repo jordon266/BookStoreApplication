@@ -34,7 +34,7 @@ public class OwnerBooksState extends UIState {
         hb = new HBox();
         group = new Group();
     }
-    
+
     @Override
     public Scene buildUI(){
         BookStore DB = super.getDataBase();
@@ -56,8 +56,7 @@ public class OwnerBooksState extends UIState {
         TextField addBookPrice = new TextField();
         Button addButton = new Button();
         addButton.setText("Add");
-        addButton.setOnAction(new EventHandler<ActionEvent>() {
-            
+        addButton.setOnAction(new EventHandler<ActionEvent>() {          
             @Override
             public void handle(ActionEvent event) {
                 DB.addBook(new Book(addBookName.getText(),Double.valueOf(addBookPrice.getText())));
@@ -67,18 +66,25 @@ public class OwnerBooksState extends UIState {
         });
         
         Button deleteButton = new Button();
-        hb.getChildren().addAll(addBookName,addBookPrice,addButton,deleteButton);
         deleteButton.setText("Delete");
-        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-            
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {           
             @Override
             public void handle(ActionEvent event) {
                 Book b = table.getSelectionModel().getSelectedItem();
                 DB.delete(b);
-                System.out.println("Deleted");
             }
         });
-        hb.getChildren().addAll();
+        Button backButton = new Button();
+        backButton.setText("Back");
+        backButton.setOnAction(new EventHandler<ActionEvent>() {           
+            @Override
+            public void handle(ActionEvent event) {
+                DB.write();
+                changeState(new OwnerStartState(DB));
+            }
+        });
+        hb.getChildren().addAll(addBookName,addBookPrice,addButton,deleteButton, backButton);
+
         hb.setSpacing(5);
         ((Group) scene.getRoot()).getChildren().addAll(vb);
         System.out.println("Reached here");

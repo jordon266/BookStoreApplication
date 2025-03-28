@@ -11,9 +11,11 @@ package bookstore;
  */
 public class Customer extends User {
     private int points;
-    Customer(String uname, String pword, int pointsBalance){
+    Customer(String uname, String pword, String pointsBalance){
          super(uname,pword);
-         points = pointsBalance;
+         System.out.println("In cusomter constructor");
+         points = Integer.parseInt(pointsBalance.strip());
+         System.out.println("Out of Customer constructor");
     }
     Customer(String uname, String pword){ // for temporary use
          super(uname,pword);

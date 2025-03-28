@@ -47,11 +47,12 @@ public class CustomerCostState extends UIState {
         gp.add(totalCost, 2, 0);
         gp.add(pointsAndStatus, 2, 1);
         gp.add(logout, 2, 2);
-                logout.setOnAction(new EventHandler<ActionEvent>() {
+        logout.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
                 DB.setCurrentUser(null);
+                DB.write();
                 changeState(new LoginState(DB));
             }
         });

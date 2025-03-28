@@ -41,7 +41,7 @@ public class OwnerCustomersState extends UIState {
     public Scene buildUI(){
         BookStore DB = super.getDataBase();
         System.out.println("In ownerCustomersClass");
-        Scene scene = new Scene(new Group());
+        Scene scene = new Scene(new Group(),550,800);
         table.setEditable((true));
         final VBox vb = new VBox();
         final HBox hb = new HBox();
@@ -60,8 +60,7 @@ public class OwnerCustomersState extends UIState {
         TextField addPassword = new TextField();
         Button addButton = new Button();
         addButton.setText("Add");
-        addButton.setOnAction(new EventHandler<ActionEvent>() {
-            
+        addButton.setOnAction(new EventHandler<ActionEvent>() {          
             @Override
             public void handle(ActionEvent event) {
                 DB.addUser(new Customer(addUserName.getText(),addPassword.getText()));
@@ -81,10 +80,21 @@ public class OwnerCustomersState extends UIState {
                 System.out.println("Deleted");
             }
         });
-        hb.getChildren().addAll(addUserName,addPassword,addButton,deleteButton);
+        Button backButton = new Button();
+        backButton.setText("Back");
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                DB.write();
+                changeState(new OwnerStartState(DB));
+            }
+        });
+        hb.getChildren().addAll(addUserName,addPassword,addButton,deleteButton, backButton);
         hb.setSpacing(5);
         ((Group) scene.getRoot()).getChildren().addAll(vb);
         System.out.println("Reached here");
+        
         return scene;
     }
 }

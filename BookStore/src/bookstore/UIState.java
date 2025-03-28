@@ -22,4 +22,8 @@ abstract class UIState  {
         return db;
     }
     abstract Scene buildUI();
+    public void changeState(UIState state ){
+        
+        db.setState(state);
+    }
 }
