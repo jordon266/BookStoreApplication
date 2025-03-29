@@ -51,14 +51,21 @@ public class CustomerStartState extends UIState {
         double cost = 0;
         for(Book book: DB.getBooks()){
             if(book.getCheckBox().isSelected()){
+                book.getCheckBox().setSelected(false);
                cost += book.getPrice();
             }
         }
+        
         int numOfDollarsOff = ((int) (((Customer) DB.getCurrentUser()).getPoints())/100);
         int numOfPoints = ((Customer) DB.getCurrentUser()).getPoints();
-        DB.setTotalCost(cost - numOfDollarsOff );
+        if(cost <= numOfDollarsOff){
+            DB.setTotalCost(0);
+        } else {
+            DB.setTotalCost(cost - numOfDollarsOff);
+        }
+        ((Customer) DB.getCurrentUser()).adjustPoints(0-((int)cost*10));
+
         
-        ((Customer) DB.getCurrentUser()).adjustPoints(-(numOfDollarsOff*100));
     } 
     public void changeState(UIState state ){
         BookStore DB = super.getDataBase();

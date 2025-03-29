@@ -46,7 +46,10 @@ public class BookStore extends Application {
         currentUser = user;
     }
     public void setTotalCost(double tCost){
-        totalCost = tCost;
+        if(tCost>= 0){
+            totalCost = tCost;
+        }
+        totalCost = 0;
     }
     // writing to new file customers
     public  void write(){
