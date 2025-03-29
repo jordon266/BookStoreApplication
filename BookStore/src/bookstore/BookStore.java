@@ -78,14 +78,14 @@ public class BookStore extends Application {
     }
     private Book loadBook(String line){
         String [] params =  line.split(",");
-        Book temp = new Book(params[0],Double.valueOf( params[1]));
+        Book temp = new Book(params[0],Double.parseDouble(params[1]));
         return temp;
     }   
     // reads files customers.txt Books.txt
     private  void read() {
         try (Scanner scanner = new Scanner(Path.of("customers.txt")) ) {
             while(scanner.hasNextLine()){
-                users.add(loadCustomer(scanner.nextLine()));
+                getUsers().add(loadCustomer(scanner.nextLine()));
             }
             scanner.close();
         } catch (IOException e) {
@@ -93,7 +93,7 @@ public class BookStore extends Application {
         }
         try (Scanner scanner = new Scanner(Path.of("books.txt")) ) {
             while(scanner.hasNextLine()){
-                  this.getBooks().add(loadBook(scanner.nextLine()));
+                  books.add(loadBook(scanner.nextLine()));
             }
             scanner.close();
         } catch (IOException e) {

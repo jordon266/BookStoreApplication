@@ -60,7 +60,7 @@ public class LoginState extends UIState {
         loginbtn.setText("Login");
         Label welcomeBanner = new Label("Welcome to the Bookstore");
         Label userNameLabel = new Label("Username:");
-        Label passwordLabel = new Label("Password");
+        Label passwordLabel = new Label("Password:");
         TextField userNameField = new TextField();
         TextField passwordField = new TextField();
         GridPane.setConstraints(welcomeBanner,0,0);
