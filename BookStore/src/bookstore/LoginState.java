@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -56,23 +57,36 @@ public class LoginState extends UIState {
     public Scene buildUI(){
         BookStore DB =super.getDataBase();
         GridPane root = new GridPane();
-        Button loginbtn = new Button();
-        loginbtn.setText("Login");
+        Button loginButton = new Button();
+        loginButton.setText("Login");
+        
+        //Creating the labels
         Label welcomeBanner = new Label("Welcome to the Bookstore");
         Label userNameLabel = new Label("Username:");
         Label passwordLabel = new Label("Password:");
+        
+        //Creating the user and password text field
         TextField userNameField = new TextField();
         TextField passwordField = new TextField();
+        
+        GridPane.setMargin(welcomeBanner, new Insets(0, 0, 10, 0));
+        GridPane.setMargin(userNameField, new Insets(5, 0, 5, 0));
+        GridPane.setMargin(passwordField, new Insets(5, 0, 5, 0));
+        GridPane.setMargin(userNameLabel, new Insets(5, 0, 5, 5));
+        GridPane.setMargin(passwordLabel, new Insets(5, 0, 5, 5));
+        GridPane.setMargin(loginButton, new Insets(5, 0, 5, 5));
+        
+        //Adding the all elements to the grid
         GridPane.setConstraints(welcomeBanner,0,0);
         GridPane.setConstraints(userNameLabel,0,1);
         GridPane.setConstraints(passwordLabel,0,2);
         GridPane.setConstraints(userNameField,1,1);
         GridPane.setConstraints(passwordField,1,2);
-        GridPane.setConstraints(loginbtn, 1, 3);
-        root.getChildren().addAll(welcomeBanner,loginbtn,userNameLabel,userNameField,passwordLabel,passwordField);
+        GridPane.setConstraints(loginButton, 1, 3);
+        root.getChildren().addAll(welcomeBanner,loginButton,userNameLabel,userNameField,passwordLabel,passwordField);
 
         
-        loginbtn.setOnAction(new EventHandler<ActionEvent>() {
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
