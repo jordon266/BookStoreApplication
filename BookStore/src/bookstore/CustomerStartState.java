@@ -66,8 +66,7 @@ public class CustomerStartState extends UIState {
     public Scene buildUI(){
         BookStore DB = super.getDataBase();
         System.out.println("In ownerCustomersClass");
-        Scene scene = new Scene(new Group());
-        
+        Scene scene = new Scene(new Group(),550,800);      
         table.setEditable((true));
         final VBox vb = new VBox();
         final HBox tb = new HBox();
@@ -83,6 +82,7 @@ public class CustomerStartState extends UIState {
         select.setCellValueFactory( new PropertyValueFactory<Book,CheckBox>("checkBox"));
         table.getColumns().addAll(bookName,bookPrice,select);
         table.setItems(DB.getBooks());
+        table.setMinWidth(450);
         vb.setSpacing(5);
         vb.setPadding(new Insets(10,0,0,10));
         vb.getChildren().addAll(tb,table,hb);

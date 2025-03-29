@@ -13,9 +13,7 @@ public class Customer extends User {
     private int points;
     Customer(String uname, String pword, String pointsBalance){
          super(uname,pword);
-         System.out.println("In cusomter constructor");
          points = Integer.parseInt(pointsBalance.strip());
-         System.out.println("Out of Customer constructor");
     }
     Customer(String uname, String pword){ // for temporary use
          super(uname,pword);
@@ -30,8 +28,6 @@ public class Customer extends User {
         }
         return false;
     }
- 
- 
         @Override 
     public String toString(){
         return this.getUserName() + "," +this.getPassword() + "," + this.getPoints();

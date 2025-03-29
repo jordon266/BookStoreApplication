@@ -4,6 +4,7 @@
  */
 package bookstore;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -28,14 +29,33 @@ public class OwnerCustomersState extends UIState {
 //    private final VBox vb = new VBox();
     private HBox hb ;
     private Group group;
-    
+    private ObservableList<User> u_users;  
+
     OwnerCustomersState(BookStore DB){
         super(DB);
         table =  new TableView<User>();
-        
+        u_users = super.getDataBase().getUsers();
         hb = new HBox();
         group = new Group();
     }
+    
+    public boolean addUser(User user){
+        if(!(u_users.contains(user))){
+            this.u_users.add(user);
+            return true;
+        }
+        return false;
+    }
+    public boolean delete(User d_user){
+        if(u_users.contains(d_user)){
+            u_users.remove(d_user);
+            return true;
+        }
+        return false;
+    }
+
+
+    
     
     @Override
     public Scene buildUI(){
@@ -63,7 +83,7 @@ public class OwnerCustomersState extends UIState {
         addButton.setOnAction(new EventHandler<ActionEvent>() {          
             @Override
             public void handle(ActionEvent event) {
-                DB.addUser(new Customer(addUserName.getText(),addPassword.getText()));
+                addUser(new Customer(addUserName.getText(),addPassword.getText()));
                 addUserName.clear();
                 addPassword.clear();
             }
@@ -76,7 +96,7 @@ public class OwnerCustomersState extends UIState {
             @Override
             public void handle(ActionEvent event) {
                 User u = table.getSelectionModel().getSelectedItem();
-                DB.delete(u);
+                delete(u);
                 System.out.println("Deleted");
             }
         });
