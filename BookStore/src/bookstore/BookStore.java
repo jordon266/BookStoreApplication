@@ -106,6 +106,7 @@ public class BookStore extends Application {
     public ObservableList<User> getUsers(){
         return users;
     }
+    //gets user
     public User getUser(User l_user){
         for(User user: users){
             if(user.equals(l_user)){
