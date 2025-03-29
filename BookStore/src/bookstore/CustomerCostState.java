@@ -30,7 +30,7 @@ public class CustomerCostState extends UIState {
         GridPane gp = new GridPane();
         logout.setText("Logout");
         totalCost.setText("Total Cost: " + DB.getTotalCost());
-        pointsAndStatus.setText("Points:" + ((Customer) DB.getCurrentUser()).getPoints() + "Status: " + PointsSystem.getStatus(((Customer) DB.getCurrentUser()).getPoints() ));
+        pointsAndStatus.setText("Points: " + ((Customer) DB.getCurrentUser()).getPoints() + ", Status: " + PointsSystem.getStatus(((Customer) DB.getCurrentUser()).getPoints() ));
         totalCost.setMinWidth(200);
         totalCost.setMinHeight(60);
         pointsAndStatus.setMinWidth(200);
