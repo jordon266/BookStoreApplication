@@ -68,7 +68,7 @@ public class OwnerBooksState extends UIState {
         TableColumn bookName = new TableColumn("Book Name");
         bookName.setCellValueFactory( new PropertyValueFactory<Book,String>("name"));
         //Creates a column for book price
-        TableColumn bookPrice = new TableColumn("Book Price");
+        TableColumn bookPrice = new TableColumn("Book Price ");
         bookPrice.setCellValueFactory( new PropertyValueFactory<Book,Double>("price"));
         
         table.getColumns().setAll(bookName,bookPrice);
