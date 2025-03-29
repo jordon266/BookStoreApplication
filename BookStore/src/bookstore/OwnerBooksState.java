@@ -58,22 +58,39 @@ public class OwnerBooksState extends UIState {
     @Override
     public Scene buildUI(){
         BookStore DB = super.getDataBase();
-        System.out.println("In ownerCustomersClass");
+        System.out.println("In ownerBooksClass");
         Scene scene = new Scene(new Group());
         table.setEditable((true));
         final VBox vb = new VBox();
         final HBox hb = new HBox();
+        
+        //Creates a column for book name
         TableColumn bookName = new TableColumn("Book Name");
-        TableColumn bookPrice = new TableColumn("Book Price");
         bookName.setCellValueFactory( new PropertyValueFactory<Book,String>("name"));
+        //Creates a column for book price
+        TableColumn bookPrice = new TableColumn("Book Price ");
         bookPrice.setCellValueFactory( new PropertyValueFactory<Book,Double>("price"));
+        
+        //adding the columns to the table
         table.getColumns().addAll(bookName,bookPrice);
+        
+        //restricting the resizing
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
         table.setItems(DB.getBooks());
         vb.setSpacing(5);
         vb.setPadding(new Insets(10,0,0,10));
         vb.getChildren().addAll(table,hb);
+        
+        //Text field for book name
         TextField addBookName = new TextField();
+        addBookName.setPromptText("Book Name");
+        
+        //Text field for book price
         TextField addBookPrice = new TextField();
+        addBookPrice.setPromptText("Book Price");
+        
+        //Add button to add the new book
         Button addButton = new Button();
         addButton.setText("Add");
         addButton.setOnAction(new EventHandler<ActionEvent>() {          

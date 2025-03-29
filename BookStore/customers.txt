@@ -12,8 +12,9 @@ SophiaGarcia, password123,7000
 OliviaMartinez, password456,9000
 MasonHernandez, password789,10000
 IsabellaRodriguez, password012,1500
-jordon,jordon,0
+jordon,jordon,30000
 killer,killer,0
 killer,cam,540000
 jordon,jaquavious,0
 sun jin,woo,0
+Anith,Anith,119000

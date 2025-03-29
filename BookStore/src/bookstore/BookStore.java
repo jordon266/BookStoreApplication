@@ -83,6 +83,7 @@ public class BookStore extends Application {
     }   
     // reads files customers.txt Books.txt
     private  void read() {
+        //Reads over the customers
         try (Scanner scanner = new Scanner(Path.of("customers.txt")) ) {
             while(scanner.hasNextLine()){
                 getUsers().add(loadCustomer(scanner.nextLine()));
@@ -91,18 +92,22 @@ public class BookStore extends Application {
         } catch (IOException e) {
             System.out.println("An error occurred.");
         }
+        
+        //Reads over the books
         try (Scanner scanner = new Scanner(Path.of("books.txt")) ) {
             while(scanner.hasNextLine()){
-                  books.add(loadBook(scanner.nextLine()));
+                  getBooks().add(loadBook(scanner.nextLine()));
             }
             scanner.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
         }
     }
+    
     public ObservableList<Book> getBooks(){
         return books;
     }
+    
     public ObservableList<User> getUsers(){
         return users;
     }

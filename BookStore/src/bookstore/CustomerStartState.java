@@ -38,6 +38,7 @@ public class CustomerStartState extends UIState {
         double cost = 0;
         for(Book book: DB.getBooks()){
             if(book.getCheckBox().isSelected()){
+               book.getCheckBox().setSelected(false);
                cost += book.getPrice();
             }
         }
@@ -71,23 +72,41 @@ public class CustomerStartState extends UIState {
         final VBox vb = new VBox();
         final HBox tb = new HBox();
         final HBox hb = new HBox();
+        
+        //Creating a column for book name
         TableColumn bookName = new TableColumn("Book Name");
+        bookName.setCellValueFactory( new PropertyValueFactory<Book,String>("name"));
+        
+        //creating a column for book price
         TableColumn bookPrice = new TableColumn("Book Price");
+        bookPrice.setCellValueFactory( new PropertyValueFactory<Book,Double>("price"));
+        
+        //creating a column for the check books
         TableColumn select = new TableColumn("Select");
+        select.setCellValueFactory( new PropertyValueFactory<Book,CheckBox>("checkBox"));
+        
+        // Adding the columns to the table
+        table.getColumns().addAll(bookName,bookPrice,select);
+        
+        //restricting the resizing
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
+        //Forcing the size for of 'select' column
+        select.setPrefWidth(90);
+        select.setMinWidth(90);
+        select.setMaxWidth(90);
+
+        
+        table.setItems(DB.getBooks());
+        table.setMinWidth(450);
         Label greeting = new Label();
         greeting.setText(greetCustomer());
         tb.getChildren().addAll(greeting);
-        bookName.setCellValueFactory( new PropertyValueFactory<Book,String>("name"));
-        bookPrice.setCellValueFactory( new PropertyValueFactory<Book,Double>("price"));
-        select.setCellValueFactory( new PropertyValueFactory<Book,CheckBox>("checkBox"));
-        table.getColumns().addAll(bookName,bookPrice,select);
-        table.setItems(DB.getBooks());
-        table.setMinWidth(450);
         vb.setSpacing(5);
         vb.setPadding(new Insets(10,0,0,10));
         vb.getChildren().addAll(tb,table,hb);
-        TextField addBookName = new TextField();
-        TextField addBookPrice = new TextField();
+        
+        //Buy button
         Button buyButton = new Button();
         buyButton.setText("Buy");
         buyButton.setOnAction(new EventHandler<ActionEvent>() {

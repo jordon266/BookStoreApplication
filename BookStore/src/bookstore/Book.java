@@ -12,6 +12,7 @@ public class Book {
     private String name;
     private double price;
     private CheckBox checkBox;
+    
     Book(String bname, double bprice){
         name = bname;
         price = bprice;

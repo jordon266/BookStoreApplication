@@ -65,19 +65,38 @@ public class OwnerCustomersState extends UIState {
         table.setEditable((true));
         final VBox vb = new VBox();
         final HBox hb = new HBox();
+        
+        //Creating a column for username
         TableColumn userName = new TableColumn("Username");
-        TableColumn password = new TableColumn("Password");
-        TableColumn points = new TableColumn("Points");
         userName.setCellValueFactory( new PropertyValueFactory<Customer,String>("userName"));
+        
+        //crerating a column for password
+        TableColumn password = new TableColumn("Password");
         password.setCellValueFactory( new PropertyValueFactory<Customer,String>("password"));
+        
+        //creating a column for points
+        TableColumn points = new TableColumn("Points");
         points.setCellValueFactory( new PropertyValueFactory<Customer,String>("points"));
+        
+        //adding the columns onto the table
         table.getColumns().addAll(userName,password,points);
+        
+        //restricting the resizing
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
         table.setItems(DB.getUsers());
         vb.setSpacing(5);
         vb.setPadding(new Insets(10,0,0,10));
         vb.getChildren().addAll(table,hb);
+        
+        //text field for username
         TextField addUserName = new TextField();
+        addUserName.setPromptText("Username");
+        
+        //text field for password
         TextField addPassword = new TextField();
+        addPassword.setPromptText("Password");
+        
         Button addButton = new Button();
         addButton.setText("Add");
         addButton.setOnAction(new EventHandler<ActionEvent>() {          
