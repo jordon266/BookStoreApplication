@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
 //import javafx.scene.layout.StackPane;
 //import javafx.collections.ObservableList;
@@ -67,8 +68,8 @@ public class LoginState extends UIState {
         
         //Creating the user and password text field
         TextField userNameField = new TextField();
-        TextField passwordField = new TextField();
-        
+        PasswordField passwordField = new PasswordField();
+       
         GridPane.setMargin(welcomeBanner, new Insets(0, 0, 10, 0));
         GridPane.setMargin(userNameField, new Insets(5, 0, 5, 0));
         GridPane.setMargin(passwordField, new Insets(5, 0, 5, 0));
