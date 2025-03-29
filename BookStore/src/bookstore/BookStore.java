@@ -48,8 +48,9 @@ public class BookStore extends Application {
     public void setTotalCost(double tCost){
         if(tCost>= 0){
             totalCost = tCost;
+        } else {
+            totalCost = 0;
         }
-        totalCost = 0;
     }
     // writing to new file customers
     public  void write(){
