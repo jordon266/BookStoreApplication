@@ -9,8 +9,10 @@ import java.util.ArrayList;
  * @author jjmurray
  */
 public abstract class User {
+    //Instnace variables
     private String userName;
     private String password;
+    
     User(String uname, String pword){
         userName = uname;
         password = pword;
