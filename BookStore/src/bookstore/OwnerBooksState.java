@@ -4,6 +4,7 @@
  */
 package bookstore;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+
 /**
  *
  * @author jjmurray
@@ -26,13 +28,31 @@ public class OwnerBooksState extends UIState {
 //    private final VBox vb = new VBox();
         private HBox hb ;
     private Group group;
+     private ObservableList<Book> b_books;
+    
     
     OwnerBooksState(BookStore DB){
         super(DB);
         table =  new TableView<Book>();
-        
+        b_books = super.getDataBase().getBooks();
         hb = new HBox();
         group = new Group();
+    }
+    
+        public boolean addBook(Book book){
+            if(!(b_books.contains(book))){
+                b_books.add(book);
+                return true;
+        }
+        return false;
+        
+    }
+    public boolean delete(Book book){
+        if(b_books.contains(book)){
+            b_books.remove(book);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -59,7 +79,7 @@ public class OwnerBooksState extends UIState {
         addButton.setOnAction(new EventHandler<ActionEvent>() {          
             @Override
             public void handle(ActionEvent event) {
-                DB.addBook(new Book(addBookName.getText(),Double.valueOf(addBookPrice.getText())));
+                addBook(new Book(addBookName.getText(),Double.valueOf(addBookPrice.getText())));
                 addBookName.clear();
                 addBookPrice.clear();
             }
@@ -71,7 +91,7 @@ public class OwnerBooksState extends UIState {
             @Override
             public void handle(ActionEvent event) {
                 Book b = table.getSelectionModel().getSelectedItem();
-                DB.delete(b);
+                delete(b);
             }
         });
         Button backButton = new Button();

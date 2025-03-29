@@ -11,4 +11,6 @@ Software Engineering,7200.0
 Operating Systems,2500.0
 Computer Graphics,5500.0
 Human-Computer Interaction,4600.0
-Discrete,100.0
+Discrete Mathematics,100.0
+Jordon,1234567.0
+
