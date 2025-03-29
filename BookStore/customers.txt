@@ -17,4 +17,4 @@ killer,killer,0
 killer,cam,540000
 jordon,jaquavious,0
 sun jin,woo,0
-Anith,Anith,4500
+Anith,Anith,9500
