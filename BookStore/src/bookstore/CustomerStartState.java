@@ -38,6 +38,7 @@ public class CustomerStartState extends UIState {
         double cost = 0;
         for(Book book: DB.getBooks()){
             if(book.getCheckBox().isSelected()){
+               book.getCheckBox().setSelected(false);
                cost += book.getPrice();
             }
         }
