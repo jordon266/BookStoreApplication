@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -96,9 +97,25 @@ public class OwnerBooksState extends UIState {
         addButton.setOnAction(new EventHandler<ActionEvent>() {          
             @Override
             public void handle(ActionEvent event) {
-                addBook(new Book(addBookName.getText(),Double.valueOf(addBookPrice.getText())));
-                addBookName.clear();
-                addBookPrice.clear();
+                try {
+                    if(!addBookName.getText().isEmpty()){
+                        addBook(new Book(addBookName.getText(),Double.valueOf(addBookPrice.getText())));
+                        addBookName.clear();
+                        addBookPrice.clear();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("Please ensure that a name was entered for the book name");
+                        alert.setHeaderText("Invalid Name");
+                        alert.show();
+                    }
+                    
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Please ensure that a number was entered for the price");
+                    alert.setHeaderText("Invalid Price");
+                    alert.show();
+                }
+                
             }
         });
         
