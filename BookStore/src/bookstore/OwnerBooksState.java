@@ -55,14 +55,14 @@ public class OwnerBooksState extends UIState {
         }
         return false;
     }
-    public static Book findBookByName(ObservableList<Book> books, String searchName) {
-    for (Book book : books) {
-        if (book.getName().equals(searchName)) {
-            return book; // Return immediately when found
+    public Book findBookByName(ObservableList<Book> books, String searchName) {
+        for (Book book : books) {
+            if (book.getName().equals(searchName)) {
+                return book; 
+            }
         }
+        return null; 
     }
-    return null; // If no match found
-}
 
     @Override
     public Scene buildUI(){
@@ -111,13 +111,13 @@ public class OwnerBooksState extends UIState {
                         alert.setContentText("Please ensure that a name was entered for the book name");
                         alert.setHeaderText("Invalid Name");
                         alert.show();
-                    } else if(b_books.contains(findBookByName(b_books, addBookName.getText()))){ 
+                    } else if(b_books.contains(findBookByName(b_books, addBookName.getText().trim()))){ 
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setContentText("This book already exist within the bookstore");
                         alert.setHeaderText("Book Error");
                         alert.show();
                     } else {
-                        addBook(new Book(addBookName.getText(),Double.valueOf(addBookPrice.getText())));
+                        addBook(new Book(addBookName.getText().trim(),Double.valueOf(addBookPrice.getText().trim())));
                         addBookName.clear();
                         addBookPrice.clear();
                         
