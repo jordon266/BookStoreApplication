@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -48,6 +49,17 @@ public class CustomerStartState extends UIState {
         
         ((Customer) DB.getCurrentUser()).adjustPoints(((int)cost*10));
     } 
+    
+    public Boolean isBookSelected(){
+        BookStore DB = super.getDataBase();
+        for(Book book: DB.getBooks()){
+            if(book.getCheckBox().isSelected()){
+               return true;
+            }
+        }
+        return false;
+    }
+    
     public void redeemAndCalTotalCost(){
         BookStore DB = super.getDataBase();
         double cost = 0;
@@ -127,8 +139,16 @@ public class CustomerStartState extends UIState {
             
             @Override
             public void handle(ActionEvent event) {
-                buyAndCalTotalCost();
-                changeState(new CustomerCostState(DB));
+                if(isBookSelected()){
+                    buyAndCalTotalCost();
+                    changeState(new CustomerCostState(DB));
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Please select a book");
+                    alert.setHeaderText("Book Not Selected");
+                    alert.show();
+                }
+                
 
             }
         });
@@ -139,9 +159,15 @@ public class CustomerStartState extends UIState {
             
             @Override
             public void handle(ActionEvent event) {
-//               ((Customer) DB.getCurrentUser()).adjustPoints()
-                redeemAndCalTotalCost();
-                changeState(new CustomerCostState(DB));
+                if(isBookSelected()){
+                    redeemAndCalTotalCost();
+                    changeState(new CustomerCostState(DB));
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Please select a book");
+                    alert.setHeaderText("Book Not Selected");
+                    alert.show();
+                }
             }
         });
         Button logout = new Button();
