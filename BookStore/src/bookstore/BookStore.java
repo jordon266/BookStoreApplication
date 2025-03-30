@@ -75,7 +75,6 @@ public class BookStore extends Application {
     }
     
     private Customer loadCustomer(String line){
-        System.out.println(line);
         String [] params =  line.split(",");
         Customer temp = new Customer(params[0],params[1],(params[2]));
         return temp;

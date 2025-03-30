@@ -47,10 +47,19 @@ public class OwnerCustomersState extends UIState {
         }
         return false;
     }
+
     public boolean delete(User d_user){
         if(u_users.contains(d_user)){
             u_users.remove(d_user);
             return true;
+        }
+        return false;
+    }
+    public boolean userNameExists(ObservableList<User> users,String userName){
+        for(User user: u_users){
+            if(user.getUserName().equals(userName)){
+                return true;
+            }
         }
         return false;
     }
@@ -121,6 +130,11 @@ public class OwnerCustomersState extends UIState {
                     alert.setContentText("Please change either the username or password");
                     alert.setHeaderText("Credentials Exist");
                     alert.show();
+                }else if(userNameExists(u_users, addUserName.getText().trim())){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("A user with the username already exists");
+                    alert.setHeaderText("Credentials Exist");
+                    alert.show();
                 }else{
                     addUser(new Customer(addUserName.getText().trim(),addPassword.getText().trim()));
                     addUserName.clear();
@@ -154,7 +168,6 @@ public class OwnerCustomersState extends UIState {
         hb.getChildren().addAll(addUserName,addPassword,addButton,deleteButton, backButton);
         hb.setSpacing(5);
         ((Group) scene.getRoot()).getChildren().addAll(vb);
-        System.out.println("Reached here");
         
         return scene;
     }

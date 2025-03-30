@@ -40,11 +40,11 @@ public class OwnerBooksState extends UIState {
         group = new Group();
     }
     
-        public boolean addBook(Book book){
+    public boolean addBook(Book book){
             if(!(b_books.contains(book))){
                 b_books.add(book);
                 return true;
-        }
+    }
         return false;
         
     }
