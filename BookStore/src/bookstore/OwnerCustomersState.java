@@ -54,6 +54,14 @@ public class OwnerCustomersState extends UIState {
         }
         return false;
     }
+    public Boolean credentialsExist(ObservableList<User> users, String username, String password) {
+        for (User user : users) {
+            if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
+                return true; 
+            }
+        }
+        return false; 
+    }
 
 
     
@@ -103,15 +111,20 @@ public class OwnerCustomersState extends UIState {
         addButton.setOnAction(new EventHandler<ActionEvent>() {          
             @Override
             public void handle(ActionEvent event) {
-                if(!addUserName.getText().isEmpty() && !addPassword.getText().isEmpty()){
-                    addUser(new Customer(addUserName.getText(),addPassword.getText()));
-                    addUserName.clear();
-                    addPassword.clear();
-                } else{
+                if(addUserName.getText().isEmpty() || addPassword.getText().isEmpty()){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Please ensure a username and password is entered");
                     alert.setHeaderText("Invalid Inputs");
                     alert.show();
+                } else if(credentialsExist(u_users, addUserName.getText().trim(), addPassword.getText().trim())){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Please change either the username or password");
+                    alert.setHeaderText("Credentials Exist");
+                    alert.show();
+                }else{
+                    addUser(new Customer(addUserName.getText().trim(),addPassword.getText().trim()));
+                    addUserName.clear();
+                    addPassword.clear();
                 }
                 
             }
