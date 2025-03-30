@@ -42,6 +42,8 @@ public class CustomerStartState extends UIState {
                cost += book.getPrice();
             }
         }
+        
+        System.out.println("This is the cost" + cost);
         DB.setTotalCost(cost);
         
         ((Customer) DB.getCurrentUser()).adjustPoints(((int)cost*10));
@@ -49,16 +51,28 @@ public class CustomerStartState extends UIState {
     public void redeemAndCalTotalCost(){
         BookStore DB = super.getDataBase();
         double cost = 0;
+        DB.setTotalCost(0);
         for(Book book: DB.getBooks()){
             if(book.getCheckBox().isSelected()){
+               book.getCheckBox().setSelected(false);
                cost += book.getPrice();
             }
         }
-        int numOfDollarsOff = ((int) (((Customer) DB.getCurrentUser()).getPoints())/100);
-        int numOfPoints = ((Customer) DB.getCurrentUser()).getPoints();
-        DB.setTotalCost(cost - numOfDollarsOff );
         
-        ((Customer) DB.getCurrentUser()).adjustPoints(-(numOfDollarsOff*100));
+        int numOfDollarsOff = ((int) (((Customer) DB.getCurrentUser()).getPoints())/100);
+        System.out.println("This is the number of dollars off" + numOfDollarsOff + " this is the cost " + cost);
+        int numOfPoints = ((Customer) DB.getCurrentUser()).getPoints();
+        if(cost <= numOfDollarsOff){
+            DB.setTotalCost(0);
+            ((Customer) DB.getCurrentUser()).adjustPoints(0-((int)cost*100));
+
+        } else {
+            DB.setTotalCost(cost - numOfDollarsOff);
+            ((Customer) DB.getCurrentUser()).adjustPoints(- ((Customer) DB.getCurrentUser()).getPoints());
+
+        }
+
+        
     } 
     public void changeState(UIState state ){
         BookStore DB = super.getDataBase();

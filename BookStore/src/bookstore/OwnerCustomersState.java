@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TextField;
@@ -102,9 +103,17 @@ public class OwnerCustomersState extends UIState {
         addButton.setOnAction(new EventHandler<ActionEvent>() {          
             @Override
             public void handle(ActionEvent event) {
-                addUser(new Customer(addUserName.getText(),addPassword.getText()));
-                addUserName.clear();
-                addPassword.clear();
+                if(!addUserName.getText().isEmpty() && !addPassword.getText().isEmpty()){
+                    addUser(new Customer(addUserName.getText(),addPassword.getText()));
+                    addUserName.clear();
+                    addPassword.clear();
+                } else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Please ensure a username and password is entered");
+                    alert.setHeaderText("Invalid Inputs");
+                    alert.show();
+                }
+                
             }
         });
         

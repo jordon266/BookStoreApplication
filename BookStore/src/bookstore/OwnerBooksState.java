@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -54,6 +55,14 @@ public class OwnerBooksState extends UIState {
         }
         return false;
     }
+    public static Book findBookByName(ObservableList<Book> books, String searchName) {
+    for (Book book : books) {
+        if (book.getName().equals(searchName)) {
+            return book; // Return immediately when found
+        }
+    }
+    return null; // If no match found
+}
 
     @Override
     public Scene buildUI(){
@@ -96,9 +105,31 @@ public class OwnerBooksState extends UIState {
         addButton.setOnAction(new EventHandler<ActionEvent>() {          
             @Override
             public void handle(ActionEvent event) {
-                addBook(new Book(addBookName.getText(),Double.valueOf(addBookPrice.getText())));
-                addBookName.clear();
-                addBookPrice.clear();
+                try {
+                    if(addBookName.getText().isEmpty()){
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("Please ensure that a name was entered for the book name");
+                        alert.setHeaderText("Invalid Name");
+                        alert.show();
+                    } else if(b_books.contains(findBookByName(b_books, addBookName.getText()))){ 
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("This book already exist within the bookstore");
+                        alert.setHeaderText("Book Error");
+                        alert.show();
+                    } else {
+                        addBook(new Book(addBookName.getText(),Double.valueOf(addBookPrice.getText())));
+                        addBookName.clear();
+                        addBookPrice.clear();
+                        
+                    }
+                    
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Please ensure that a number was entered for the price");
+                    alert.setHeaderText("Invalid Price");
+                    alert.show();
+                }
+                
             }
         });
         
