@@ -94,9 +94,6 @@ public class LoginState extends UIState {
                 boolean userIsLoggedIn = login(userNameField.getText(),passwordField.getText());
                 if(userIsLoggedIn){
                     if(isOwner()){
-//                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//                        alert.setContentText("This is the owner");
-//                        alert.show();
                           UIState ownerStart = new OwnerStartState(DB);
                           DB.setState(ownerStart);
                          
